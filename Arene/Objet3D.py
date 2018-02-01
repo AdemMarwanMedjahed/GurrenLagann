@@ -7,37 +7,29 @@ class Objet3D(object):
 
     def __init__(self):
         """Construire un objet 3D en lui attribuant un nom"""
-        self.__sommets=list()
-        self.__centre=Point(0,0,0)
+        self.sommets=list()
+        self.centre=Point(0,0,0)
 
     def addSommet(self, sommet):
         """Ajoute un sommet de type heritant de Point a la forme 3D"""
         if issubclass(type(sommet), Point):
-            self.__sommets.append(sommet)
+            self.sommets.append(sommet)
 
     def setCentre(self, point):
         """Permet de placer le centre a la position de point"""
-        self.__centre.setPosition(point)
+        self.centre.setPosition(point)
         
     def deplacer(self, vecteur):
         """deplace les sommets et le centre de l'objet, tant ue le centre est initialise et que le vecteur herite de Vecteur"""
         if issubclass(type(vecteur), Point):
-            if self.__centre:
-                self.__centre.deplacer(vecteur)
-            for s in self.__sommets:
+            if self.centre:
+                self.centre.deplacer(vecteur)
+            for s in self.sommets:
                 s.deplacer(vecteur)
-    
-    def getSommets(self):
-        """Accesseur sur la liste de sommets"""
-        return self.__sommets
-
-    def getCentre(self):
-        """Accesseur sur le centre"""
-        return self.__centre
-    
+        
     def __repr__(self):
         """Quand on entre un objet3D dans l'interpreteur"""
-        return "Objet3D: centre: {}, liste de sommets[{}]({})".format(self.__centre,len(self.__sommets), self.__sommets)
+        return "Objet3D: centre: {}, liste de sommets[{}]({})".format(self.centre,len(self.sommets), self.sommets)
 
     def __getattr__(self, nom):
         """Permet d'acceder a un attribut. si ce n'est pas possible:"""
