@@ -1,4 +1,4 @@
-from Objet3D import *
+from Arene.Objet3D import *
 
 class Arene(object):
     """Contient une liste d'objets 3D """

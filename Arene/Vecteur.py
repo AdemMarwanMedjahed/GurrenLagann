@@ -1,6 +1,6 @@
-from Point import *
+from Arene.Point import *
 from math import *
-from fonctions import atan2
+from Arene.fonctions import atan2
 
 class Vecteur(Point):
     """Defini des methodes de calcul sur les vecteurs"""

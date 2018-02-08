@@ -1,4 +1,5 @@
-import Roue, Tete
+from composants.Roue import *
+from composants.Tete import *
 from math import pi
 from Arene.Vecteur import *
 from Arene.Point import *
@@ -22,17 +23,30 @@ class Robot(object):
 
     def avancer(self, distance, vitesse, direction):
         #v est le vecteur de déplacement selon la direction et sa norme est distance
-        v=Vecteur(direction._x+distance, direction._y+distance,0)
+        v=Vecteur(direction.x*distance, direction.y*distance,0)
         self.direction=direction
-        self.rd.tourner(distance / Roue.rayon * 2 * pi, vitesse)
-        self.rg.tourner(distance / Roue.rayon * 2 * pi, vitesse)
+        self.rd.tourner(distance / self.rd.rayon * 2 * pi, vitesse)
+        self.rg.tourner(distance / self.rg.rayon * 2 * pi, vitesse)
         self.position.deplacer(v)
         self.forme.deplacer(v)
 
     def tournerTete(self, angle):
         self.tete.tourner(angle)
 
-    #def rotation(self, angle):
+    def rotation(self, angle, axe):
+        angle=angle*pi/180
+        for sommet in self.forme.getSommets():
+            v=Vecteur(sommet.x-axe.x,sommet.y-axe.y,0)
+            v.rotation2D(angle)
+            sommet.x=v.x
+            sommet.y=v.y
+
+    def toString(self):
+        for sommet in self.forme.getSommets():
+            print("("+str(sommet.x)+","+str(sommet.y)+")",end="   ")
+
+
+
 
 
 

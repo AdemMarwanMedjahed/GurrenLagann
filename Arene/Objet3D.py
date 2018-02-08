@@ -1,4 +1,4 @@
-from Point import *
+from Arene.Point import *
 
 class Objet3D(object):
     """Classe definissant un objet 3D"""
@@ -34,3 +34,6 @@ class Objet3D(object):
     def __getattr__(self, nom):
         """Permet d'acceder a un attribut. si ce n'est pas possible:"""
         print("L'attribut {} n'est pas accessible dans Objet3D !".format(nom))
+
+    def getSommets(self):
+        return self.sommets
