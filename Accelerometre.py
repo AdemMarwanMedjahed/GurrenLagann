@@ -14,7 +14,7 @@ class Accelerometre(Capteur):
         Capteur.__init__(position, Vecteur(0,0,0))
         self.type="accelerometre"
         self.state= True
-        self.dt=1#pas mettre a 0
+        self.FPS=0.5#pas mettre a 0
         self.vitesseVectorielle=Vecteur(0,0,0)
         self.accelerationVectorielle=Vecteur(0,0,0)
 
@@ -54,23 +54,21 @@ class Accelerometre(Capteur):
             a=Robot.getPositionCourante()
             va=self.vitesseVectorielle
 
-            self.dt=Robot.getDt()
            # creer un temps d'attente suffisant pour permettre l'avancee du robot
+           time.sleep(self.FPS)
            
            b=Robot.getPositionCourante()
-           vb=self.vitesseVectorielle
+          # vb=self.vitesseVectorielle
            
            dx=fabs(b.x-a.x)
            dy=fabs(b.y-a.y)
            dz=fabs(b.z-a.z)
-           self.vitesseVectorielle=Vecteur(dx/self.dt,dy/self.dt,dz/self.dt)
-           time.sleep(dt)
-           vx=vb.x-va.x
-           vy=vb.y-va.y
-           vz=vb.z-va.z
-           self.accelerationVectorielle=Vecteur(vx/self.dt,vy/self.dt,vz/self.dt)
-           
-
-
-
+           self.vitesseVectorielle=Vecteur(dx/self.FPS,dy/self.FPS,dz/self.FPS) #utilite de cacluler vitesseVectorielle si on l a deja au dessus
+           #time.sleep(dt) on discretise le dt =1
+           vb=self.vitesseVectorielle
+           dvx=vb.x-va.x
+           dvy=vb.y-va.y
+           dvz=vb.z-va.z
+           self.accelerationVectorielle=Vecteur(dvx/self.FPS,dvy/self.FPS,dvz/self.FPS)
+     
 
