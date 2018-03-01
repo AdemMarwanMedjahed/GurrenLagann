@@ -11,7 +11,6 @@ poly.sommets = [Point(14, 15, 14), Point(5, 99, 120)]
 #a.add(poly)
 a.add(p)
 a.add(poly)
-a.sauvegarder("./geometrie3D/BanqueArenes/arene1.txt")
 b = Arene(list())
 a.sauvegardeArenejson("sauvegarde_a.txt")
 b = a.lireArenejson("sauvegarde_a.txt")
