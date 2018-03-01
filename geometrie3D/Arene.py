@@ -3,17 +3,23 @@ from .Polygone3D import *
 from .Pave import *
 from .pointDansPolygone import point_inside_polygon as pi
 from math import *
+import json
 
 class Arene(object):
     """
     Definit une structure de base pour une arene contenant des Objet3D
     """
 
-    def __init__(self):
+    def __init__(self,objets3D=None):
         """
         objets3D: [Objet3D]
         """
-        self.objets3D = list()
+        if objets3D:
+            self.objets3D = objets3D
+        else:
+            self.objets3D = list()
+
+
 
     def add(self, objet3D):
         """
@@ -158,3 +164,41 @@ class Arene(object):
 
 
         return matrice2D
+
+    
+
+    def my_hook(dic):
+
+        if "__class" in dic:
+
+            cls = dic.pop("__class" )
+            return eval(cls)(**dic)
+
+        return dic
+
+    def sauvegardeArenejson(self, fichier):
+        """sauvegardeArene(Arene) prend une aréne en paramétre la convertie au format Json et l'enregiste dans un fichier texte"""
+        def my_enc(obj):
+            dic = dict(obj.__dict__)
+            dic.update({"__class":obj.__class__.__name__})
+            return dic
+
+        if(issubclass(Arene,type(self))==False):
+           print("sauvegarde Arene prend une Aréne en paramétre");
+           return None
+        f = open(fichier,'w')
+        areneJson=json.dump(self,f,indent=4,sort_keys=True,default=my_enc)
+        f.close()
+
+    def lireArenejson(self,fichier):
+        
+        def my_hook(dic):
+            if "__class" in dic:
+                cls = dic.pop("__class" )
+                return eval(cls)(**dic)
+
+            return dic
+
+        f = open(fichier,"r")
+        obj = json.load(f,object_hook=my_hook)
+        return obj

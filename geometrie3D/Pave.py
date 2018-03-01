@@ -10,22 +10,25 @@ class Pave(Polygone3D):
     Classe definissant un pave dans un repere en 3D
     """
 
-    def __init__(self, longueur, largeur, hauteur ):
+    def __init__(self, longueur, largeur, hauteur,sommets=None,centre=None):
         """
         Constructeur ajoutant les 8 sommets autour du centre par defaut: (0,0,0)
         """
-        Polygone3D.__init__(self)
+        Polygone3D.__init__(self,centre)
         self.longueur = longueur
         self.largeur = largeur
         self.hauteur = hauteur
-        self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y - largeur / 2, self.centre.z + hauteur / 2))
-        self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y - largeur / 2, self.centre.z + hauteur / 2))
-        self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y + largeur / 2, self.centre.z + hauteur / 2))
-        self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y + largeur / 2, self.centre.z + hauteur / 2))
-        self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y - largeur / 2, self.centre.z - hauteur / 2))
-        self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y - largeur / 2, self.centre.z - hauteur / 2))
-        self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y + largeur / 2, self.centre.z - hauteur / 2))
-        self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y + largeur / 2, self.centre.z - hauteur / 2))
+        if sommets:
+            self.sommets = sommets
+        else:
+            self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y - largeur / 2, self.centre.z + hauteur / 2))
+            self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y - largeur / 2, self.centre.z + hauteur / 2))
+            self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y + largeur / 2, self.centre.z + hauteur / 2))
+            self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y + largeur / 2, self.centre.z + hauteur / 2))
+            self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y - largeur / 2, self.centre.z - hauteur / 2))
+            self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y - largeur / 2, self.centre.z - hauteur / 2))
+            self.addSommet(Point(self.centre.x + longueur / 2, self.centre.y + largeur / 2, self.centre.z - hauteur / 2))
+            self.addSommet(Point(self.centre.x - longueur / 2, self.centre.y + largeur / 2, self.centre.z - hauteur / 2))
 
     def tournerSelon(self, axe, teta):
         if axe=='z':
@@ -73,7 +76,7 @@ class Pave(Polygone3D):
             v = (self.centre-point).toVect() # meme chose pour le centre
             v.rotationY(teta)
             self.centre = point+v
-
+    
     def tournerAutour(self, point, teta):
         """
         tourne le pave autour de point selon z d'un angle teta
@@ -100,3 +103,4 @@ class Pave(Polygone3D):
         
     def tournerY(self, teta):
         self.tournerAutourY(self.centre, teta)
+     
