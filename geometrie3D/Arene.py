@@ -62,37 +62,6 @@ class Arene(object):
                                 print(boolean)
                             print(i, j)
 
-    def sauvegarder(self, nomfichier):
-        f = open(nomfichier , "w")
-        f.write("1024 1024\n")
-        for objet in self.objets3D:
-            if issubclass(type(objet), Pave):
-                f.write("PAVE {} {} {}".format(objet.longueur, objet.largeur, objet.hauteur))
-            else:
-                f.write("POLYGONE3D")
-                for som in objet.sommets:
-                    f.write(" ({},{},{})".format(som.x, som.y, som.z))
-            f.write("\n")
-        f.close()
-
-    def lecture_fichier(self, fichier):
-        mon_fichier = open(fichier, "r")
-        for line in mon_fichier.read().splitlines()[1:]:
-            words = line.split();
-            if (words[0] == "POLYGONE3D"):
-                polygone = Polygone3D()
-                for sommet in words[1:]:
-                    sommet_str = sommet.replace("(", "")
-                    sommet_str = sommet_str.replace(")", "")
-                    sommet_tab = sommet_str.split(",")
-                    polygone.addSommet(Point(int(sommet_tab[0]), int(sommet_tab[1]), int(sommet_tab[2])))
-
-                self.add(polygone)
-            if (words[0] == "PAVE"):
-                pave = Pave(int(words[1]),int(words[2]),int(words[3]))
-                self.add(pave)
-        mon_fichier.close()
-
     def __repr__(self):
         """
         Quand on entre une arene dans l'interpreteur
